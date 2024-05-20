@@ -1,8 +1,12 @@
 import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
 
 import { TRPCReactProvider } from "~/trpc/react";
+
+import theme from "~/theme";
 
 export const metadata = {
   title: "Create T3 App",
@@ -18,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>       <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </AppRouterCacheProvider></TRPCReactProvider>
       </body>
     </html>
   );
