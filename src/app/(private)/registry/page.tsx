@@ -7,6 +7,9 @@ import {
 } from "@tanstack/react-table";
 
 import React from "react";
+import Link from "next/link";
+
+import { api } from "~/trpc/react";
 
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -22,7 +25,30 @@ import {
 import { columns } from "./columns";
 
 export default function Registry() {
-  const data = [] as never[];
+  const registryList = api.registry.getRegistryList.useQuery();
+  const data =
+    registryList.data?.map((registry) => ({
+      id: registry.id,
+      fullName: [
+        registry.firstName,
+        registry.middleName,
+        registry.lastName,
+        registry.suffixName,
+      ]
+        .filter(Boolean)
+        .join(" "),
+      address: [
+        registry.streetAddress,
+        registry.barangayAddress,
+        registry.municipalityAddress,
+        registry.provinceAddress,
+      ]
+        .filter(Boolean)
+        .join(", "),
+      age:
+        new Date().getFullYear() - new Date(registry.birthDate).getFullYear(),
+      sex: registry.sex,
+    })) ?? [];
 
   const table = useReactTable({
     data,
@@ -42,7 +68,9 @@ export default function Registry() {
       </section>
       <section className="mt-16 flex items-center gap-4">
         <Input placeholder="Search" />
-        <Button>New Profile</Button>
+        <Button asChild>
+          <Link href="/registry/create">New Profile</Link>
+        </Button>
       </section>
       <section className="mt-4 rounded-md border">
         <Table>
