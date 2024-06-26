@@ -14,19 +14,7 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
-}
-
-// Necessary for Next auth
+//! NEXT AUTH
 model Account {
     id                       String  @id @default(cuid())
     userId                   String
@@ -54,6 +42,14 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+}
+
 model User {
     id            String    @id @default(cuid())
     name          String?
@@ -65,10 +61,36 @@ model User {
     posts         Post[]
 }
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+//! TRANSACTION
+model TransactionDocument {
+    id String @id @default(cuid())
 
-    @@unique([identifier, token])
+    transactionId String
+    status        String
+
+    @@index([transactionId])
+}
+
+//! REGISTRY
+model RegistryResident {
+    id String @id @default(cuid())
+
+    lastName   String
+    firstName  String
+    middleName String
+    suffixName String?
+}
+
+//! ^^^
+
+model Post {
+    id        Int      @id @default(autoincrement())
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    createdBy   User   @relation(fields: [createdById], references: [id])
+    createdById String
+
+    @@index([name])
 }
