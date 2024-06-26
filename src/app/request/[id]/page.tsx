@@ -1,12 +1,10 @@
-"use client";
-
 import React from "react";
 
+import RequestDocuments from "./RequestDocuments";
 import RequesterId from "./RequesterId";
 import RequesterInformation from "./RequesterInformation";
-import RequestDocuments from "./RequestDocuments";
 
-export default function Request() {
+export default function Request({ params }: { params: { id: string } }) {
   return (
     <main className="container my-16">
       <section>
@@ -16,6 +14,7 @@ export default function Request() {
           double check that the information you provide is accurate to prevent
           any delays in processing your request.
         </p>
+        <p className="typography-p">{params.id}</p>
       </section>
       <RequesterId />
       <RequesterInformation />
