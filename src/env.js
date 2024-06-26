@@ -15,7 +15,7 @@ export const env = createEnv({
       .string()
       .startsWith(
         "mysql://",
-        "Must be a MySQL URL that starts with 'mysql://'",
+        "Must be a MySQL URL that starts with 'mysql://'"
       ),
 
     NEXTAUTH_SECRET:
@@ -24,7 +24,7 @@ export const env = createEnv({
         : z.string().optional(),
     NEXTAUTH_URL: z.preprocess(
       (str) => str || process.env.NEXT_PUBLIC_BASE_URL,
-      z.string().url(),
+      z.string().url()
     ),
   },
 

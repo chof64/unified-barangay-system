@@ -5,7 +5,8 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
-import CredentialsProvider from "next-auth/providers/credentials";
+
+// import CredentialsProvider from "next-auth/providers/credentials";
 
 import { db } from "~/server/db";
 
@@ -47,21 +48,21 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
-    CredentialsProvider({
-      name: "Email Password Credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials, req) {
-        const user = {
-          id: "1",
-          name: "John Doe",
-          email: "johndoe@example.com",
-        };
-        return user;
-      },
-    }),
+    // CredentialsProvider({
+    //   name: "Email Password Credentials",
+    //   credentials: {
+    //     email: { label: "Email", type: "email" },
+    //     password: { label: "Password", type: "password" },
+    //   },
+    //   async authorize(credentials, req) {
+    //     const user = {
+    //       id: "1",
+    //       name: "John Doe",
+    //       email: "johndoe@example.com",
+    //     };
+    //     return user;
+    //   },
+    // }),
     /**
      * ...add more providers here.
      *
