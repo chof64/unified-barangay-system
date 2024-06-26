@@ -1,7 +1,9 @@
-import { z } from "zod";
+"use client";
+
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -73,7 +75,7 @@ export default function RequesterInformation() {
                 name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Last Name</FormLabel>
+                    <FormLabel>Given Names</FormLabel>
                     <FormControl>
                       <Input
                         className="shadow-none"

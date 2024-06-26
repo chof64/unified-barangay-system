@@ -6,4 +6,4 @@ services:
       MYSQL_DATABASE: db
     restart: on-failure
     ports:
-      - "3306:3306"
+      - "5643:3306"

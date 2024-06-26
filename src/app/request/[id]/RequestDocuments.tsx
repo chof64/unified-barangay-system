@@ -1,10 +1,11 @@
-import { z } from "zod";
+"use client";
+
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import Link from "next/link";
 import { XIcon } from "lucide-react";
 import { nanoid } from "nanoid";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -13,7 +14,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
@@ -84,7 +84,7 @@ export default function RequestDocuments() {
                                   onChange={(e) => {
                                     const updated = [...field.value];
                                     updated[index]!.quantity = Number(
-                                      e.target.value,
+                                      e.target.value
                                     );
                                     field.onChange(updated);
                                   }}

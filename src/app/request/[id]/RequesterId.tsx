@@ -1,8 +1,10 @@
-import { z } from "zod";
+"use client";
+
 import React from "react";
+import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
+import { z } from "zod";
 
 import { Button } from "~/components/ui/button";
 import {
