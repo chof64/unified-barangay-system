@@ -5,9 +5,7 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
-import DiscordProvider from "next-auth/providers/discord";
-
-import { env } from "~/env";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "~/server/db";
 
 /**
@@ -38,29 +36,54 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    session: async ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
-        id: user.id,
+        id: token.id,
       },
     }),
   },
+  session: {
+    strategy: "jwt",
+  },
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    CredentialsProvider({
+      id: "admin-barangay",
+      name: "Barangay Admin Account",
+      credentials: {
+        email: { label: "Email", type: "email", placeholder: "Email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, _req) {
+        if (!credentials?.email || !credentials.password) {
+          throw new Error("Missing email or password");
+        }
+
+        const dbUser = await db.user.findUnique({
+          where: { email: credentials.email },
+        });
+
+        if (!dbUser) {
+          throw new Error("No user found");
+        }
+
+        const isValidPassword = dbUser.password === credentials.password;
+
+        if (!isValidPassword) {
+          throw new Error("Invalid password");
+        }
+
+        return { id: dbUser.id, email: dbUser.email };
+      },
     }),
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
   ],
 };
 
