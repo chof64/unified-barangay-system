@@ -76,9 +76,25 @@
 }
 
 @layer components {
+  /* PAGE HEADER */
+  .typography-page-title {
+    @apply scroll-m-20 text-4xl font-bold tracking-tight;
+  }
+
+  .typography-page-description {
+    @apply mt-2 text-sm font-medium leading-none text-neutral-500;
+  }
+
+  /* LINKS */
+  .typography-link-default {
+    @apply text-sky-500/80 hover:text-sky-700 hover:underline;
+  }
+
+  /* !|>==================================================================<|! */
+
   /* HEADING */
   .typography-h1 {
-    @apply scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl;
+    @apply scroll-m-20 text-4xl font-bold tracking-tight;
   }
 
   .typography-h2 {
@@ -127,6 +143,6 @@
   }
 
   .typography-muted {
-    @apply text-sm text-muted-foreground;
+    @apply text-sm text-neutral-500;
   }
 }
