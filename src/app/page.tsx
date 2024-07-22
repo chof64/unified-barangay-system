@@ -1,11 +1,11 @@
-import React from "react";
-import { Provider, Balancer } from "react-wrap-balancer";
-import Link from "next/link";
-import Image from "next/image";
+import React from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { Balancer, Provider } from "react-wrap-balancer"
 
-import { Button } from "~/components/ui/button";
-import { BorderBeam } from "~/components/magicui/border-beam";
-import DotPattern from "~/components/magicui/dot-pattern";
+import { Button } from "~/components/ui/button"
+import { BorderBeam } from "~/components/magicui/border-beam"
+import DotPattern from "~/components/magicui/dot-pattern"
 
 export default function Home() {
   return (
@@ -59,5 +59,5 @@ export default function Home() {
         </p>
       </section>
     </main>
-  );
+  )
 }

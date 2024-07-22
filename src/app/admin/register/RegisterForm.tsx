@@ -1,14 +1,15 @@
-"use client";
+"use client"
 
-import React from "react";
-import { api } from "~/trpc/react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { type z } from "zod";
-import { Input } from "~/components/ui/input";
-import { Button } from "~/components/ui/button";
+import React from "react"
+import { useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { adminRegisterSchema } from "~/schema/adminRegister"
+import { api } from "~/trpc/react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { type z } from "zod"
+
+import { Button } from "~/components/ui/button"
 import {
   Form,
   FormControl,
@@ -16,23 +17,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "~/components/ui/form";
-import { adminRegisterSchema } from "~/schema/adminRegister";
+} from "~/components/ui/form"
+import { Input } from "~/components/ui/input"
 
 export default function RegisterForm() {
-  const router = useRouter();
+  const router = useRouter()
 
   const registerUser = api.adminAuth.register.useMutation({
     onSuccess: () => {
-      toast.success("User registered successfully");
-      void router.push("/admin");
+      toast.success("User registered successfully")
+      void router.push("/admin")
     },
     onError: (error) => {
       toast.error("User registration failed", {
         description: error.message,
-      });
+      })
     },
-  });
+  })
 
   const form = useForm<z.infer<typeof adminRegisterSchema>>({
     resolver: zodResolver(adminRegisterSchema),
@@ -40,7 +41,7 @@ export default function RegisterForm() {
       email: "",
       password: "",
     },
-  });
+  })
 
   return (
     <Form {...form}>
@@ -49,7 +50,7 @@ export default function RegisterForm() {
           registerUser.mutate({
             email: data.email,
             password: data.password,
-          }),
+          })
         )}
         className="space-y-6"
       >
@@ -83,5 +84,5 @@ export default function RegisterForm() {
         <Button type="submit">Submit</Button>
       </form>
     </Form>
-  );
+  )
 }

@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { adminRegisterSchema } from "~/schema/adminRegister"
+import { signIn } from "next-auth/react"
+import { useForm } from "react-hook-form"
+import { type z } from "zod"
 
-import { type z } from "zod";
-import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
-import { signIn } from "next-auth/react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Button } from "~/components/ui/button"
 import {
   Form,
   FormControl,
@@ -16,9 +16,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "~/components/ui/form";
-
-import { adminRegisterSchema } from "~/schema/adminRegister";
+} from "~/components/ui/form"
+import { Input } from "~/components/ui/input"
 
 export default function LoginForm() {
   const form = useForm<z.infer<typeof adminRegisterSchema>>({
@@ -27,7 +26,7 @@ export default function LoginForm() {
       email: "",
       password: "",
     },
-  });
+  })
 
   return (
     <main className="min-h-[calc(100vh-3.5rem)] w-full px-6 md:px-0 lg:grid lg:grid-cols-2">
@@ -46,7 +45,7 @@ export default function LoginForm() {
                   void signIn("admin-barangay", {
                     email: data.email,
                     password: data.password,
-                  }),
+                  })
               )}
               className="space-y-6"
             >
@@ -106,5 +105,5 @@ export default function LoginForm() {
         </div>
       </section>
     </main>
-  );
+  )
 }
