@@ -1,0 +1,25 @@
+version: "3"
+services:
+  ubs:
+    image: chof64_unified-barangay-system:test
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL?NEXT_PUBLIC_BASE_URL env var not set}
+    working_dir: /app
+    ports:
+      - "3001:3000"
+    environment:
+      DATABASE_URL: mysql://root:root@db:3306/db
+      NEXTAUTH_URL: ${NEXTAUTH_URL?NEXTAUTH_URL env var not set}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET?NEXTAUTH_SECRET env var not set}
+
+  db:
+    image: mysql:8.3
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+    restart: "no"
+    ports:
+      - "5287:3306"
