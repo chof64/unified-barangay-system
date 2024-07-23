@@ -150,3 +150,18 @@
     @apply text-sm text-neutral-500;
   }
 }
+
+@layer components {
+  /* TWO COLUMN */
+  .two-column-heading {
+    @apply max-w-md;
+  }
+
+  .two-column-heading h2 {
+    @apply typography-h4;
+  }
+
+  .two-column-heading p {
+    @apply typography-p typography-muted;
+  }
+}
