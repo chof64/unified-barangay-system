@@ -1,6 +1,7 @@
-import React from "react";
-import { redirect } from "next/navigation";
-import { getServerAuthSession } from "~/server/auth";
+import React from "react"
+import Link from "next/link"
+import { redirect } from "next/navigation"
+import { getServerAuthSession } from "~/server/auth"
 
 import {
   Card,
@@ -9,19 +10,18 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
-import RegisterForm from "./RegisterForm";
+} from "~/components/ui/card"
 
-import Link from "next/link";
+import RegisterForm from "./RegisterForm"
 
 export const metadata = {
   title: "Register",
-};
+}
 
 export default async function PageAdminRegister() {
-  const session = await getServerAuthSession();
+  const session = await getServerAuthSession()
   if (session) {
-    return redirect("/admin");
+    return redirect("/admin")
   }
 
   return (
@@ -47,5 +47,5 @@ export default async function PageAdminRegister() {
         </CardFooter>
       </Card>
     </main>
-  );
+  )
 }

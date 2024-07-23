@@ -1,12 +1,13 @@
-"use client";
+"use client"
 
-import React from "react";
-import { type z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
-import { signIn } from "next-auth/react";
+import React from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { adminRegisterSchema } from "~/schema/adminRegister"
+import { signIn } from "next-auth/react"
+import { useForm } from "react-hook-form"
+import { type z } from "zod"
+
+import { Button } from "~/components/ui/button"
 import {
   Form,
   FormControl,
@@ -14,8 +15,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "~/components/ui/form";
-import { adminRegisterSchema } from "~/schema/adminRegister";
+} from "~/components/ui/form"
+import { Input } from "~/components/ui/input"
 
 export default function LoginForm() {
   const form = useForm<z.infer<typeof adminRegisterSchema>>({
@@ -24,7 +25,7 @@ export default function LoginForm() {
       email: "",
       password: "",
     },
-  });
+  })
 
   return (
     <Form {...form}>
@@ -34,7 +35,7 @@ export default function LoginForm() {
             void signIn("admin-barangay", {
               email: data.email,
               password: data.password,
-            }),
+            })
         )}
         className="space-y-6"
       >
@@ -69,5 +70,5 @@ export default function LoginForm() {
         </Button>
       </form>
     </Form>
-  );
+  )
 }

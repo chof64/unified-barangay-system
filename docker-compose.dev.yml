@@ -4,6 +4,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db
-    restart: on-failure
+    restart: "no"
     ports:
-      - "3306:3306"
+      - "5734:3306"

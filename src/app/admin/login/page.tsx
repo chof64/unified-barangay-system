@@ -1,17 +1,18 @@
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import LoginForm from "./LoginForm";
-import { getServerAuthSession } from "~/server/auth";
+import Image from "next/image"
+import Link from "next/link"
+import { redirect } from "next/navigation"
+import { getServerAuthSession } from "~/server/auth"
+
+import LoginForm from "./LoginForm"
 
 export const metadata = {
   title: "Login",
-};
+}
 
 export default async function PageAdminLogin() {
-  const session = await getServerAuthSession();
+  const session = await getServerAuthSession()
   if (session) {
-    return redirect("/admin");
+    return redirect("/admin")
   }
 
   return (
@@ -48,5 +49,5 @@ export default async function PageAdminLogin() {
         </div>
       </section>
     </main>
-  );
+  )
 }
