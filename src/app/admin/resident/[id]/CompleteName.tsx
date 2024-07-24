@@ -3,7 +3,9 @@
 import React from "react"
 import { useParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { api } from "~/trpc/react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import { type z } from "zod"
 
 import { Button } from "~/components/ui/button"
@@ -21,6 +23,20 @@ import { completeNameSchema } from "~/schema/residentProfile"
 
 export default function CompleteName() {
   const params = useParams<{ id: string }>()
+
+  const upsertCompleteName = api.adminResident.upsertCompleteName.useMutation({
+    onSuccess: () => {
+      toast.success("Complete Name Updated Successfully", {
+        description:
+          "The complete name of the resident has been updated successfully.",
+      })
+    },
+    onError: (error) => {
+      toast.error("Failed to Update Complete Name", {
+        description: `An error occurred while updating the complete name of the resident. (${error.message})`,
+      })
+    },
+  })
 
   const form = useForm<z.infer<typeof completeNameSchema>>({
     resolver: zodResolver(completeNameSchema),
@@ -53,7 +69,12 @@ export default function CompleteName() {
       }
       right={
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form
+            onSubmit={form.handleSubmit((data) =>
+              upsertCompleteName.mutate(data)
+            )}
+            className="space-y-8"
+          >
             <FormField
               control={form.control}
               name="firstName"
