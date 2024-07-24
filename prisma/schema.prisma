@@ -24,3 +24,13 @@ model User {
     name  String?
     image String?
 }
+
+//! RESIDENT PROFILE
+model ResidentProfile {
+    id String @id
+
+    firstName     String
+    lastName      String
+    middleName    String
+    extensionName String?
+}

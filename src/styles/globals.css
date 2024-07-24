@@ -82,7 +82,7 @@
   }
 
   .typography-page-description {
-    @apply mt-2 text-sm font-medium leading-none text-neutral-500;
+    @apply mt-2 max-w-2xl text-sm font-medium leading-none text-neutral-500;
   }
 
   /* HEADING */
@@ -148,5 +148,20 @@
 
   .typography-muted {
     @apply text-sm text-neutral-500;
+  }
+}
+
+@layer components {
+  /* TWO COLUMN */
+  .two-column-heading {
+    @apply max-w-md;
+  }
+
+  .two-column-heading h2 {
+    @apply typography-h4;
+  }
+
+  .two-column-heading p {
+    @apply typography-p typography-muted;
   }
 }
