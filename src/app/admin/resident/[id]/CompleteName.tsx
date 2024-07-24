@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect } from "react"
 import { useParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { api } from "~/trpc/react"
@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { type z } from "zod"
 
+import { cn } from "~/lib/utils"
 import { Button } from "~/components/ui/button"
 import {
   Form,
@@ -23,6 +24,18 @@ import { completeNameSchema } from "~/schema/residentProfile"
 
 export default function CompleteName() {
   const params = useParams<{ id: string }>()
+
+  const getCompleteName = api.adminResident.getCompleteName.useQuery(
+    {
+      id: params.id,
+    },
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      retryOnMount: false,
+    }
+  )
 
   const upsertCompleteName = api.adminResident.upsertCompleteName.useMutation({
     onSuccess: () => {
@@ -49,9 +62,20 @@ export default function CompleteName() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof completeNameSchema>) {
-    console.log(values)
-  }
+  useEffect(() => {
+    if (getCompleteName.data?.firstName) {
+      form.setValue("firstName", getCompleteName.data.firstName)
+    }
+    if (getCompleteName.data?.lastName) {
+      form.setValue("lastName", getCompleteName.data.lastName)
+    }
+    if (getCompleteName.data?.middleName) {
+      form.setValue("middleName", getCompleteName.data.middleName)
+    }
+    if (getCompleteName.data?.extensionName) {
+      form.setValue("extensionName", getCompleteName.data.extensionName)
+    }
+  }, [form, getCompleteName.data])
 
   return (
     <TwoColumn
@@ -78,6 +102,7 @@ export default function CompleteName() {
             <FormField
               control={form.control}
               name="firstName"
+              disabled={getCompleteName.isFetching}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>First Name</FormLabel>
@@ -91,6 +116,7 @@ export default function CompleteName() {
             <FormField
               control={form.control}
               name="lastName"
+              disabled={getCompleteName.isFetching}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Last Name</FormLabel>
@@ -105,6 +131,7 @@ export default function CompleteName() {
               <FormField
                 control={form.control}
                 name="middleName"
+                disabled={getCompleteName.isFetching}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Middle Name</FormLabel>
@@ -118,6 +145,7 @@ export default function CompleteName() {
               <FormField
                 control={form.control}
                 name="extensionName"
+                disabled={getCompleteName.isFetching}
                 render={({ field }) => (
                   <FormItem className="w-64">
                     <FormLabel>Extension</FormLabel>
@@ -129,7 +157,9 @@ export default function CompleteName() {
                 )}
               />
             </div>
-            <Button type="submit">Submit</Button>
+            <Button disabled={getCompleteName.isFetching} type="submit">
+              Submit
+            </Button>
           </form>
         </Form>
       }
