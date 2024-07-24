@@ -1,12 +1,13 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter"
 import {
   getServerSession,
   type DefaultSession,
   type NextAuthOptions,
-} from "next-auth";
-import { type Adapter } from "next-auth/adapters";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { db } from "~/server/db";
+} from "next-auth"
+import { type Adapter } from "next-auth/adapters"
+import CredentialsProvider from "next-auth/providers/credentials"
+
+import { db } from "~/server/db"
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -17,10 +18,10 @@ import { db } from "~/server/db";
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
-      id: string;
+      id: string
       // ...other properties
       // role: UserRole;
-    } & DefaultSession["user"];
+    } & DefaultSession["user"]
   }
 
   // interface User {
@@ -38,9 +39,9 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
-        token.id = user.id;
+        token.id = user.id
       }
-      return token;
+      return token
     },
     session: async ({ session, token }) => ({
       ...session,
@@ -64,32 +65,32 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, _req) {
         if (!credentials?.email || !credentials.password) {
-          throw new Error("Missing email or password");
+          throw new Error("Missing email or password")
         }
 
         const dbUser = await db.user.findUnique({
           where: { email: credentials.email },
-        });
+        })
 
         if (!dbUser) {
-          throw new Error("No user found");
+          throw new Error("No user found")
         }
 
-        const isValidPassword = dbUser.password === credentials.password;
+        const isValidPassword = dbUser.password === credentials.password
 
         if (!isValidPassword) {
-          throw new Error("Invalid password");
+          throw new Error("Invalid password")
         }
 
-        return { id: dbUser.id, email: dbUser.email };
+        return { id: dbUser.id, email: dbUser.email }
       },
     }),
   ],
-};
+}
 
 /**
  * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
  *
  * @see https://next-auth.js.org/configuration/nextjs
  */
-export const getServerAuthSession = () => getServerSession(authOptions);
+export const getServerAuthSession = () => getServerSession(authOptions)

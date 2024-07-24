@@ -1,9 +1,9 @@
-import { z } from "zod";
-import React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import React from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
-import { Button } from "~/components/ui/button";
+import { Button } from "~/components/ui/button"
 import {
   Form,
   FormControl,
@@ -12,14 +12,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
+} from "~/components/ui/form"
+import { Input } from "~/components/ui/input"
 
 const requesterSchema = z.object({
   lastName: z.string(),
   firstName: z.string(),
   middleName: z.string(),
-});
+})
 
 export default function RequesterInformation() {
   const form = useForm<z.infer<typeof requesterSchema>>({
@@ -29,10 +29,10 @@ export default function RequesterInformation() {
       firstName: "",
       middleName: "",
     },
-  });
+  })
 
   function onSubmit(values: z.infer<typeof requesterSchema>) {
-    console.log(values);
+    console.log(values)
   }
 
   return (
@@ -116,5 +116,5 @@ export default function RequesterInformation() {
         </div>
       </div>
     </section>
-  );
+  )
 }

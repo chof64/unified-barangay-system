@@ -1,11 +1,11 @@
-import { z } from "zod";
-import React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { XIcon } from "lucide-react";
-import { nanoid } from "nanoid";
+import React from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { XIcon } from "lucide-react"
+import { nanoid } from "nanoid"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
-import { Button } from "~/components/ui/button";
+import { Button } from "~/components/ui/button"
 import {
   Form,
   FormControl,
@@ -13,20 +13,20 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
+} from "~/components/ui/form"
+import { Input } from "~/components/ui/input"
 
 const documentItem = z.object({
   id: z.string(),
   type: z.string(),
   quantity: z.number(),
-});
+})
 
 const requestDocumentsSchema = z.object({
   requested: z
     .array(documentItem)
     .min(1, "Please select at least one document."),
-});
+})
 
 export default function RequestDocuments() {
   const form = useForm<z.infer<typeof requestDocumentsSchema>>({
@@ -34,10 +34,10 @@ export default function RequestDocuments() {
     defaultValues: {
       requested: [],
     },
-  });
+  })
 
   function onSubmit(values: z.infer<typeof requestDocumentsSchema>) {
-    console.log(values);
+    console.log(values)
   }
 
   return (
@@ -70,9 +70,9 @@ export default function RequestDocuments() {
                                   placeholder="Document Type"
                                   value={item.type}
                                   onChange={(e) => {
-                                    const updated = [...field.value];
-                                    updated[index]!.type = e.target.value;
-                                    field.onChange(updated);
+                                    const updated = [...field.value]
+                                    updated[index]!.type = e.target.value
+                                    field.onChange(updated)
                                   }}
                                 />
                                 <Input
@@ -80,20 +80,20 @@ export default function RequestDocuments() {
                                   placeholder="Document Quantity"
                                   value={item.quantity}
                                   onChange={(e) => {
-                                    const updated = [...field.value];
+                                    const updated = [...field.value]
                                     updated[index]!.quantity = Number(
-                                      e.target.value,
-                                    );
-                                    field.onChange(updated);
+                                      e.target.value
+                                    )
+                                    field.onChange(updated)
                                   }}
                                 />
                                 <Button
                                   className="shrink-0"
                                   size={"icon"}
                                   onClick={() => {
-                                    const updated = [...field.value];
-                                    updated.splice(index, 1);
-                                    field.onChange(updated);
+                                    const updated = [...field.value]
+                                    updated.splice(index, 1)
+                                    field.onChange(updated)
                                   }}
                                 >
                                   <XIcon className="h-3 w-3" />
@@ -135,5 +135,5 @@ export default function RequestDocuments() {
         </div>
       </div>
     </section>
-  );
+  )
 }

@@ -1,6 +1,7 @@
-import { publicProcedure, createTRPCRouter } from "~/server/api/trpc";
-import { adminRegisterSchema } from "~/schema/adminRegister";
-import { TRPCError } from "@trpc/server";
+import { TRPCError } from "@trpc/server"
+
+import { adminRegisterSchema } from "~/schema/adminRegister"
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc"
 
 export const adminAuthRouter = createTRPCRouter({
   register: publicProcedure
@@ -10,13 +11,13 @@ export const adminAuthRouter = createTRPCRouter({
         where: {
           email: input.email,
         },
-      });
+      })
 
       if (!!isEmailTaken) {
         throw new TRPCError({
           code: "CONFLICT",
           message: "Email is already taken",
-        });
+        })
       }
 
       return ctx.db.user.create({
@@ -29,6 +30,6 @@ export const adminAuthRouter = createTRPCRouter({
           email: true,
           password: false,
         },
-      });
+      })
     }),
-});
+})

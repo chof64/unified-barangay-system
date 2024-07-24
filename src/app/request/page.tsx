@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import React from "react";
+import React from "react"
 
-import RequesterId from "./RequesterId";
-import RequesterInformation from "./RequesterInformation";
-import RequestDocuments from "./RequestDocuments";
+import RequestDocuments from "./RequestDocuments"
+import RequesterId from "./RequesterId"
+import RequesterInformation from "./RequesterInformation"
 
 export default function Request() {
   return (
@@ -21,5 +21,5 @@ export default function Request() {
       <RequesterInformation />
       <RequestDocuments />
     </main>
-  );
+  )
 }

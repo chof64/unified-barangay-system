@@ -3,10 +3,12 @@
 import React, { useEffect } from "react"
 import { useParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { api } from "~/trpc/react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { type z } from "zod"
+
+import { api } from "~/trpc/react"
+import { completeNameSchema } from "~/schema/residentProfile"
 
 import { Button } from "~/components/ui/button"
 import {
@@ -19,7 +21,6 @@ import {
 } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import TwoColumn from "~/components/TwoColumn"
-import { completeNameSchema } from "~/schema/residentProfile"
 
 export default function CompleteName() {
   const params = useParams<{ id: string }>()
