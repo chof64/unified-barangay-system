@@ -1,10 +1,26 @@
 import { z } from "zod"
 
-import { completeNameSchema } from "~/schema/residentProfile"
+import {
+  completeNameSchema,
+  residentProfileSearchSchema,
+} from "~/schema/residentProfile"
 
 import { createTRPCRouter, publicProcedure } from "../trpc"
 
 export const adminResidentRouter = createTRPCRouter({
+  getAllResidentProfile: publicProcedure
+    .input(residentProfileSearchSchema)
+    .query(({ input, ctx }) => {
+      return ctx.db.residentProfile.findMany({
+        where: {
+          firstName: { contains: input.firstName },
+          lastName: { contains: input.lastName },
+          middleName: { contains: input.middleName },
+          extensionName: { contains: input.extensionName },
+        },
+      })
+    }),
+
   getCompleteName: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input, ctx }) => {
