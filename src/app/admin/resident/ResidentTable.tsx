@@ -55,19 +55,12 @@ export default function ResidentTable() {
       extensionName: form.getValues().extensionName,
     })
 
-  function onSubmit(values: z.infer<typeof residentProfileSearchSchema>) {
-    void getAllResidentProfile.refetch()
-  }
-
   return (
     <section className="mt-16">
       <div className="mb-8">
         <div className="flex gap-16">
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex w-full gap-4"
-            >
+            <form className="flex w-full gap-4">
               <FormField
                 control={form.control}
                 name="lastName"
@@ -116,7 +109,12 @@ export default function ResidentTable() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Search</Button>
+              <Button
+                type="submit"
+                onClick={() => getAllResidentProfile.refetch()}
+              >
+                Search
+              </Button>
               <Button variant={"ghost"} onClick={() => form.reset()}>
                 Clear
               </Button>
