@@ -3,12 +3,10 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { api } from "~/trpc/react"
 import { MoreHorizontal } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { type z } from "zod"
-
-import { api } from "~/trpc/react"
-import { residentProfileSearchSchema } from "~/schema/residentProfile"
 
 import { Button } from "~/components/ui/button"
 import {
@@ -34,6 +32,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table"
+import { residentProfileSearchSchema } from "~/schema/residentProfile"
 
 export default function ResidentTable() {
   const router = useRouter()
@@ -122,7 +121,7 @@ export default function ResidentTable() {
             </form>
           </Form>
           <Button variant={"outline"} asChild>
-            <Link href={`/admin/resident/new`}>New Resident</Link>
+            <Link href={`/resident/profile/new`}>New Resident</Link>
           </Button>
         </div>
         <p className="typography-muted mt-2">
@@ -170,7 +169,7 @@ export default function ResidentTable() {
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuItem
                       onClick={() =>
-                        router.push(`/admin/resident/${resident.id}`)
+                        router.push(`/resident/profile/${resident.id}`)
                       }
                     >
                       Edit
