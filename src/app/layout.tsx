@@ -1,11 +1,11 @@
-import "~/styles/globals.css";
+import "~/styles/globals.css"
 
-import { GeistSans } from "geist/font/sans";
-import { Toaster } from "~/components/ui/sonner";
+import { GeistSans } from "geist/font/sans"
 
-import { TRPCReactProvider } from "~/trpc/react";
+import { TRPCReactProvider } from "~/trpc/react"
 
-import Header from "~/components/header/Header";
+import { Toaster } from "~/components/ui/sonner"
+import Header from "~/components/header/Header"
 
 export const metadata = {
   title: {
@@ -14,12 +14,12 @@ export const metadata = {
   },
   description: "Unified Barangay System for Catungan IV",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
@@ -31,5 +31,5 @@ export default function RootLayout({
         </TRPCReactProvider>
       </body>
     </html>
-  );
+  )
 }

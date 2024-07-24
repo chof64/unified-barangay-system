@@ -1,10 +1,10 @@
-import { z } from "zod";
-import React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import Link from "next/link";
+import React from "react"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
-import { Button } from "~/components/ui/button";
+import { Button } from "~/components/ui/button"
 import {
   Form,
   FormControl,
@@ -13,15 +13,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
+} from "~/components/ui/form"
+import { Input } from "~/components/ui/input"
 
 const requesterIdSchema = z.object({
   idNumber: z.string(),
   idType: z.string(),
   idPictureFront: z.unknown(),
   idPictureBack: z.unknown(),
-});
+})
 
 export default function RequesterId() {
   const form = useForm<z.infer<typeof requesterIdSchema>>({
@@ -29,10 +29,10 @@ export default function RequesterId() {
     defaultValues: {
       idNumber: "",
     },
-  });
+  })
 
   function onSubmit(values: z.infer<typeof requesterIdSchema>) {
-    console.log(values);
+    console.log(values)
   }
 
   return (
@@ -99,5 +99,5 @@ export default function RequesterId() {
         </div>
       </div>
     </section>
-  );
+  )
 }

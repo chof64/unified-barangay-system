@@ -3,10 +3,12 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { api } from "~/trpc/react"
 import { MoreHorizontal } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { type z } from "zod"
+
+import { api } from "~/trpc/react"
+import { residentProfileSearchSchema } from "~/schema/residentProfile"
 
 import { Button } from "~/components/ui/button"
 import {
@@ -32,7 +34,6 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table"
-import { residentProfileSearchSchema } from "~/schema/residentProfile"
 
 export default function ResidentTable() {
   const router = useRouter()
@@ -55,19 +56,12 @@ export default function ResidentTable() {
       extensionName: form.getValues().extensionName,
     })
 
-  function onSubmit(values: z.infer<typeof residentProfileSearchSchema>) {
-    void getAllResidentProfile.refetch()
-  }
-
   return (
     <section className="mt-16">
       <div className="mb-8">
         <div className="flex gap-16">
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex w-full gap-4"
-            >
+            <form className="flex w-full gap-4">
               <FormField
                 control={form.control}
                 name="lastName"
@@ -116,7 +110,12 @@ export default function ResidentTable() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Search</Button>
+              <Button
+                type="submit"
+                onClick={() => getAllResidentProfile.refetch()}
+              >
+                Search
+              </Button>
               <Button variant={"ghost"} onClick={() => form.reset()}>
                 Clear
               </Button>

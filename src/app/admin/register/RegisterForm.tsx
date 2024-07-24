@@ -3,11 +3,12 @@
 import React from "react"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { adminRegisterSchema } from "~/schema/adminRegister"
-import { api } from "~/trpc/react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { type z } from "zod"
+
+import { api } from "~/trpc/react"
+import { adminRegisterSchema } from "~/schema/adminRegister"
 
 import { Button } from "~/components/ui/button"
 import {

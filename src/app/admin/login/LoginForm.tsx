@@ -2,10 +2,11 @@
 
 import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { adminRegisterSchema } from "~/schema/adminRegister"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { type z } from "zod"
+
+import { adminRegisterSchema } from "~/schema/adminRegister"
 
 import { Button } from "~/components/ui/button"
 import {
