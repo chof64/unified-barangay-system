@@ -7,7 +7,7 @@ import {
 
 import { createTRPCRouter, publicProcedure } from "../trpc"
 
-export const adminResidentRouter = createTRPCRouter({
+export const residentProfileRouter = createTRPCRouter({
   getAllResidentProfile: publicProcedure
     .input(residentProfileSearchSchema)
     .query(({ input, ctx }) => {
