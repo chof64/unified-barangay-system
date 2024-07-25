@@ -3,20 +3,21 @@ import Link from "next/link"
 
 import { Button } from "~/components/ui/button"
 
-import CompleteName from "./CompleteName"
+import CardList from "./CardList"
 
-export default function ResidentProfile({
+export default function ResidentIdentity({
   params,
 }: {
-  params: { id: string }
+  params: { profileId: string }
 }) {
   return (
     <main className="container my-16">
       <section>
-        <h1 className="typography-page-title">Resident Profile</h1>
+        <h1 className="typography-page-title">Resident Identity</h1>
         <p className="typography-page-description">
-          Please make sure to keep these information up-to-date. This is
-          important for the community&apos;s record keeping.
+          List of verified identity cards of the resident. These are the
+          Identity cards that they can use to verify their identity when
+          requesting services.
         </p>
       </section>
       <section className="mt-8">
@@ -24,12 +25,14 @@ export default function ResidentProfile({
           <Link href="/resident/profile">&lt;- Resident Profiles</Link>
         </Button>
         <Button asChild>
-          <Link href={`/resident/identity/${params.id}`}>Identity Cards</Link>
+          <Link href={`/resident/profile/${params.profileId}`}>
+            Profile Information
+          </Link>
         </Button>
       </section>
-      <section className="mt-8 space-y-16 divide-y border-t">
+      <section className="mt-8">
         <Suspense fallback={<div>Loading...</div>}>
-          <CompleteName />
+          <CardList />
         </Suspense>
       </section>
     </main>

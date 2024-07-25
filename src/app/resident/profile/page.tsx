@@ -1,8 +1,8 @@
-import React from "react"
+import React, { Suspense } from "react"
 
 import ResidentTable from "./ResidentTable"
 
-export default function ResidentProfile() {
+export default function ResidentProfiles() {
   return (
     <main className="container my-16">
       <section>
@@ -13,7 +13,9 @@ export default function ResidentProfile() {
           &quot;Add Resident&quot; button to create a new resident profile.
         </p>
       </section>
-      <ResidentTable />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ResidentTable />
+      </Suspense>
     </main>
   )
 }

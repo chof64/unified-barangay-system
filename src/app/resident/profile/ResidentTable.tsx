@@ -145,7 +145,11 @@ export default function ResidentTable() {
         </TableHeader>
         <TableBody>
           {getAllResidentProfile.data?.map((resident) => (
-            <TableRow key={resident.id}>
+            <TableRow
+              className="cursor-pointer"
+              key={resident.id}
+              onClick={() => router.push(`/resident/profile/${resident.id}`)}
+            >
               <TableCell>{resident.lastName}</TableCell>
               <TableCell>{resident.firstName}</TableCell>
               <TableCell>{resident.middleName}</TableCell>

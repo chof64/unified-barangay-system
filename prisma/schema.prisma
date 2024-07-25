@@ -25,7 +25,7 @@ model User {
     image String?
 }
 
-//! RESIDENT PROFILE
+//! RESIDENT REGISTRY
 model ResidentProfile {
     id String @id
 
@@ -33,4 +33,16 @@ model ResidentProfile {
     lastName      String
     middleName    String
     extensionName String?
+
+    residentIdentity ResidentIdentity[]
+}
+
+model ResidentIdentity {
+    id String @id
+
+    residentProfileId String
+    residentProfile   ResidentProfile @relation(fields: [residentProfileId], references: [id])
+
+    cardType   String
+    cardNumber String
 }
