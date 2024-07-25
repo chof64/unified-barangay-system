@@ -1,4 +1,5 @@
 import { adminAuthRouter } from "~/server/api/routers/adminAuth"
+import { residentIdentityRouter } from "~/server/api/routers/residentIdentity"
 import { residentProfileRouter } from "~/server/api/routers/residentProfile"
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc"
 
@@ -10,6 +11,7 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc"
 export const appRouter = createTRPCRouter({
   adminAuth: adminAuthRouter,
   residentProfile: residentProfileRouter,
+  residentIdentity: residentIdentityRouter,
 })
 
 // export type definition of API
