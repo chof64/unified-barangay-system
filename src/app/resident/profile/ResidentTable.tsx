@@ -3,10 +3,12 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { api } from "~/trpc/react"
 import { MoreHorizontal } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { type z } from "zod"
+
+import { api } from "~/trpc/react"
+import { residentProfileSearchSchema } from "~/schema/residentProfile"
 
 import { Button } from "~/components/ui/button"
 import {
@@ -32,7 +34,6 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table"
-import { residentProfileSearchSchema } from "~/schema/residentProfile"
 
 export default function ResidentTable() {
   const router = useRouter()
@@ -48,7 +49,7 @@ export default function ResidentTable() {
   })
 
   const getAllResidentProfile =
-    api.adminResident.getAllResidentProfile.useQuery({
+    api.residentProfile.getAllResidentProfile.useQuery({
       firstName: form.getValues().firstName,
       lastName: form.getValues().lastName,
       middleName: form.getValues().middleName,

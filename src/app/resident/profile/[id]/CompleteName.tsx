@@ -25,7 +25,7 @@ import TwoColumn from "~/components/TwoColumn"
 export default function CompleteName() {
   const params = useParams<{ id: string }>()
 
-  const getCompleteName = api.adminResident.getCompleteName.useQuery(
+  const getCompleteName = api.residentProfile.getCompleteName.useQuery(
     {
       id: params.id,
     },
@@ -37,19 +37,21 @@ export default function CompleteName() {
     }
   )
 
-  const upsertCompleteName = api.adminResident.upsertCompleteName.useMutation({
-    onSuccess: () => {
-      toast.success("Complete Name Updated Successfully", {
-        description:
-          "The complete name of the resident has been updated successfully.",
-      })
-    },
-    onError: (error) => {
-      toast.error("Failed to Update Complete Name", {
-        description: `An error occurred while updating the complete name of the resident. (${error.message})`,
-      })
-    },
-  })
+  const upsertCompleteName = api.residentProfile.upsertCompleteName.useMutation(
+    {
+      onSuccess: () => {
+        toast.success("Complete Name Updated Successfully", {
+          description:
+            "The complete name of the resident has been updated successfully.",
+        })
+      },
+      onError: (error) => {
+        toast.error("Failed to Update Complete Name", {
+          description: `An error occurred while updating the complete name of the resident. (${error.message})`,
+        })
+      },
+    }
+  )
 
   const form = useForm<z.infer<typeof completeNameSchema>>({
     resolver: zodResolver(completeNameSchema),
