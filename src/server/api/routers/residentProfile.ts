@@ -32,7 +32,7 @@ export const residentProfileRouter = createTRPCRouter({
     .input(completeNameSchema)
     .mutation(async ({ input, ctx }) => {
       return ctx.db.residentProfile.upsert({
-        where: { id: input.id },
+        where: { id: input.profileId },
         update: {
           firstName: input.firstName,
           lastName: input.lastName,
@@ -40,7 +40,7 @@ export const residentProfileRouter = createTRPCRouter({
           extensionName: input.extensionName,
         },
         create: {
-          id: input.id,
+          id: input.profileId,
           firstName: input.firstName,
           lastName: input.lastName,
           middleName: input.middleName,
