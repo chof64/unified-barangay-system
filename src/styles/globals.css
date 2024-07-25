@@ -82,7 +82,7 @@
   }
 
   .typography-page-description {
-    @apply mt-2 max-w-2xl text-sm font-medium leading-none text-neutral-500;
+    @apply mt-2 max-w-2xl text-sm font-medium leading-tight text-neutral-500;
   }
 
   /* HEADING */
