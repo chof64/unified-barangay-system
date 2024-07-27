@@ -3,6 +3,7 @@
 import React, { useEffect } from "react"
 import { useParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { LoaderCircleIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { type z } from "zod"
@@ -23,11 +24,11 @@ import { Input } from "~/components/ui/input"
 import TwoColumn from "~/components/TwoColumn"
 
 export default function CardInformation() {
-  const params = useParams<{ id: string; profileId: string }>()
+  const params = useParams<{ cardId: string; profileId: string }>()
 
   const getCardInformation = api.residentIdentity.getCardInformation.useQuery(
     {
-      id: params.id,
+      id: params.cardId,
     },
     {
       refetchOnMount: false,
@@ -55,7 +56,7 @@ export default function CardInformation() {
   const form = useForm<z.infer<typeof cardInformationSchema>>({
     resolver: zodResolver(cardInformationSchema),
     defaultValues: {
-      id: params.id,
+      cardId: params.cardId,
       profileId: params.profileId,
       cardType: "",
       cardNumber: "",
@@ -120,9 +121,24 @@ export default function CardInformation() {
                 </FormItem>
               )}
             />
-            <Button disabled={getCardInformation.isFetching} type="submit">
-              Submit
-            </Button>
+            <div className="flex items-center gap-4">
+              <Button
+                disabled={
+                  getCardInformation.isFetching ||
+                  upsertCardInformation.isPending
+                }
+                type="submit"
+              >
+                Submit
+              </Button>
+              {(getCardInformation.isFetching ||
+                upsertCardInformation.isPending) && (
+                <p className="inline-flex items-center text-neutral-500">
+                  <LoaderCircleIcon className="spin mr-1 h-4 w-4 animate-spin" />
+                  Loading
+                </p>
+              )}
+            </div>
           </form>
         </Form>
       }

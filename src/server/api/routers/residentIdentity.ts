@@ -1,8 +1,7 @@
 import { z } from "zod"
 
 import { cardInformationSchema } from "~/schema/residentIdentity"
-
-import { createTRPCRouter, publicProcedure } from "../trpc"
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc"
 
 export const residentIdentityRouter = createTRPCRouter({
   getAllIdentityCards: publicProcedure
@@ -29,14 +28,14 @@ export const residentIdentityRouter = createTRPCRouter({
     .mutation(({ input, ctx }) => {
       return ctx.db.residentIdentity.upsert({
         where: {
-          id: input.id,
+          id: input.cardId,
         },
         update: {
           cardType: input.cardType,
           cardNumber: input.cardNumber,
         },
         create: {
-          id: input.id,
+          id: input.cardId,
           residentProfileId: input.profileId,
           cardType: input.cardType,
           cardNumber: input.cardNumber,
