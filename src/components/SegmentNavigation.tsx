@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { Fragment, useState } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { ArrowLeftIcon } from "lucide-react"
@@ -58,7 +58,7 @@ export default function SegmentNavigation({
             </BreadcrumbLink>
           </BreadcrumbItem>
           {pathSegments.length > 2 && (
-            <>
+            <Fragment key={path}>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -79,17 +79,17 @@ export default function SegmentNavigation({
                   </DropdownMenuContent>
                 </DropdownMenu>
               </BreadcrumbItem>
-            </>
+            </Fragment>
           )}
           {pathSegments.slice(-2).map((path) => (
-            <>
+            <Fragment key={path}>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink href={path}>
                   {getMetadata(path)?.title}
                 </BreadcrumbLink>
               </BreadcrumbItem>
-            </>
+            </Fragment>
           ))}
         </BreadcrumbList>
       </Breadcrumb>
