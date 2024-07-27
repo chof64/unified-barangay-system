@@ -21,13 +21,15 @@ declare module "next-auth" {
       id: string
       // ...other properties
       // role: UserRole;
+      type: "admin-barangay" | "resident-identity"
     } & DefaultSession["user"]
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    // ...other properties
+    // role: UserRole;
+    type: "admin-barangay" | "resident-identity"
+  }
 }
 
 /**
@@ -40,6 +42,7 @@ export const authOptions: NextAuthOptions = {
     jwt: async ({ token, user }) => {
       if (user) {
         token.id = user.id
+        token.type = user.type
       }
       return token
     },
@@ -48,6 +51,7 @@ export const authOptions: NextAuthOptions = {
       user: {
         ...session.user,
         id: token.id,
+        type: token.type,
       },
     }),
   },
@@ -82,7 +86,35 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid password")
         }
 
-        return { id: dbUser.id, email: dbUser.email }
+        return { id: dbUser.id, type: "admin-barangay", email: dbUser.email }
+      },
+    }),
+    CredentialsProvider({
+      id: "resident-identity",
+      name: "Resident Identity",
+      credentials: {
+        cardId: { label: "Card ID", type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials?.cardId) {
+          throw new Error("Missing card ID")
+        }
+
+        const dbResidentIdentity = await db.residentIdentity.findUnique({
+          where: { cardNumber: credentials.cardId },
+          include: {
+            residentProfile: true,
+          },
+        })
+
+        if (!dbResidentIdentity) {
+          throw new Error("No resident found")
+        }
+
+        return {
+          id: dbResidentIdentity.residentProfileId,
+          type: "resident-identity",
+        }
       },
     }),
   ],

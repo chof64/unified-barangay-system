@@ -1,25 +1,25 @@
-"use client"
-
 import React from "react"
 
-import RequestDocuments from "./RequestDocuments"
-import RequesterId from "./RequesterId"
-import RequesterInformation from "./RequesterInformation"
+import LoginForm from "./LoginForm"
 
-export default function Request() {
+export default function RequestPage() {
   return (
     <main className="container my-16">
       <section>
-        <h1 className="typography-h3">Request a document</h1>
-        <p className="typography-small mt-3 font-medium text-neutral-500">
-          Fill out the form below start your request for a document. Please
+        <h1 className="typography-page-title text-center">Request</h1>
+        <p className="typography-page-description mx-auto text-center">
+          Confirm your identity to start your request for a document. Please
           double check that the information you provide is accurate to prevent
           any delays in processing your request.
         </p>
+        <p className="typography-page-description mx-auto mt-6 text-center font-normal">
+          Enter the Card ID that was provided to upon registration. Or Card ID
+          of your registered ID card.
+        </p>
       </section>
-      <RequesterId />
-      <RequesterInformation />
-      <RequestDocuments />
+      <section className="mx-auto mt-32 max-w-sm">
+        <LoginForm />
+      </section>
     </main>
   )
 }
