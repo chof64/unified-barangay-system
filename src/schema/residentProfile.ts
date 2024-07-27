@@ -9,8 +9,8 @@ export const residentProfileSearchSchema = z.object({
 
 export const completeNameSchema = z.object({
   profileId: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  middleName: z.string(),
-  extensionName: z.string().optional(),
+  firstName: z.string().trim().min(2),
+  lastName: z.string().trim().min(2),
+  middleName: z.string().trim().min(2),
+  extensionName: z.string().trim().optional(),
 })
