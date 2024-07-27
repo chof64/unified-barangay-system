@@ -28,3 +28,6 @@ declare -A aliases=(
 for alias in "${!aliases[@]}"; do
     git config --global alias.$alias "${aliases[$alias]}"
 done
+
+# Add `/workspaces` to git safe directory
+git config --global --add safe.directory /workspaces
