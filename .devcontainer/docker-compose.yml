@@ -1,0 +1,16 @@
+services:
+  main:
+    image: mcr.microsoft.com/devcontainers/javascript-node
+    volumes:
+      - ./..:/workspaces
+    command: sleep infinity
+    working_dir: /workspaces
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.3
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+    restart: "no"

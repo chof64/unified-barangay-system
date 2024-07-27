@@ -1,0 +1,30 @@
+{
+  "postCreateCommand": "bash .devcontainer/install.sh",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "main",
+  "workspaceFolder": "/workspaces",
+  "shutdownAction": "stopCompose",
+  "forwardPorts": [3000],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bradlc.vscode-tailwindcss",
+        "Prisma.prisma",
+        "esbenp.prettier-vscode",
+        "unifiedjs.vscode-mdx",
+        "VisualStudioExptTeam.intellicode-api-usage-examples",
+        "VisualStudioExptTeam.vscodeintellicode",
+        "wix.vscode-import-cost",
+        "GitHub.copilot-chat",
+        "GitHub.copilot",
+        "dbaeumer.vscode-eslint",
+        "dsznajder.es7-react-js-snippets",
+        "mikestead.dotenv",
+        "formulahendry.auto-rename-tag",
+        "formulahendry.auto-close-tag",
+        "aaron-bond.better-comments",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+}
