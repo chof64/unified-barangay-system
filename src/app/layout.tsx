@@ -1,5 +1,7 @@
 import "~/styles/globals.css"
+import "@mantine/core/styles.layer.css"
 
+import { ColorSchemeScript, MantineProvider } from "@mantine/core"
 import { GeistSans } from "geist/font/sans"
 
 import { TRPCReactProvider } from "~/trpc/react"
@@ -23,11 +25,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body>
         <TRPCReactProvider>
-          <Header />
-          {children}
-          <Toaster />
+          <MantineProvider>
+            <Header />
+            {children}
+            <Toaster />
+          </MantineProvider>
         </TRPCReactProvider>
       </body>
     </html>
