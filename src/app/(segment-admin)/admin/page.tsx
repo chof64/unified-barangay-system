@@ -14,10 +14,10 @@ export default async function AdminDashboard() {
   }
 
   return (
-    <main>
+    <div>
       <section>
         <h1 className="typography-page-heading">Admin Dashboard</h1>
       </section>
-    </main>
+    </div>
   )
 }

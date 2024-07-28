@@ -1,8 +1,16 @@
 import React, { Suspense } from "react"
+import { redirect } from "next/navigation"
+
+import { getServerAuthSession } from "~/server/auth"
 
 import ResidentTable from "./ResidentTable"
 
-export default function ResidentProfiles() {
+export default async function ResidentProfiles() {
+  const session = await getServerAuthSession()
+  if (!session) {
+    return redirect("/admin/login")
+  }
+
   return (
     <main className="container my-16">
       <section>
