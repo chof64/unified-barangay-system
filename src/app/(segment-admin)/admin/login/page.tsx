@@ -17,7 +17,7 @@ export default async function PageAdminLogin() {
   }
 
   return (
-    <main className="min-h-[calc(100vh-3.5rem)] w-full px-6 md:px-0 lg:grid lg:grid-cols-2">
+    <div className="min-h-screen w-full px-6 md:px-0 lg:grid lg:grid-cols-2">
       <section className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
@@ -49,6 +49,6 @@ export default async function PageAdminLogin() {
           />
         </div>
       </section>
-    </main>
+    </div>
   )
 }

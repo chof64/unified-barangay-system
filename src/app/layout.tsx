@@ -5,7 +5,6 @@ import { GeistSans } from "geist/font/sans"
 import { TRPCReactProvider } from "~/trpc/react"
 
 import { Toaster } from "~/components/ui/sonner"
-import Header from "~/components/header/Header"
 
 export const metadata = {
   title: {
@@ -25,9 +24,10 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <TRPCReactProvider>
-          <Header />
-          {children}
-          <Toaster />
+          <main>
+            {children}
+            <Toaster />
+          </main>
         </TRPCReactProvider>
       </body>
     </html>

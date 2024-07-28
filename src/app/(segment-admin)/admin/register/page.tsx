@@ -26,7 +26,7 @@ export default async function PageAdminRegister() {
   }
 
   return (
-    <main className="flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center">
+    <div className="flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center">
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Register</CardTitle>
@@ -47,6 +47,6 @@ export default async function PageAdminRegister() {
           </p>
         </CardFooter>
       </Card>
-    </main>
+    </div>
   )
 }
