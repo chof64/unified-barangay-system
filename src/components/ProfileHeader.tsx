@@ -37,7 +37,9 @@ export default function ProfileHeader() {
             Identity Cards
           </Link>
         </Button>
-        <Button variant={"link"}>Transactions</Button>
+        <Button variant={"link"} asChild>
+          <Link href={`/generate/${params.profileId}`}>Generate</Link>
+        </Button>
       </div>
     </div>
   )
