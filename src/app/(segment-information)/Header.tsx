@@ -16,12 +16,12 @@ export default function Header() {
               height={36}
               alt="Logo of the Municipality of Sibalom"
             />
-            <div className="font-semibold">Catungan IV</div>
+            <p className="font-semibold">Catungan IV</p>
           </div>
         </Link>
         <div>
           <Button size={"sm"} asChild>
-            <Link href="/request">Request Documents</Link>
+            <Link href="/request">Get Started</Link>
           </Button>
         </div>
       </div>

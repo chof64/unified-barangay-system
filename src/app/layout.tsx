@@ -1,10 +1,16 @@
 import "~/styles/globals.css"
 
-import { GeistSans } from "geist/font/sans"
+import { Inter } from "next/font/google"
 
 import { TRPCReactProvider } from "~/trpc/react"
+import { cn } from "~/lib/utils"
 
 import { Toaster } from "~/components/ui/sonner"
+
+const inter = Inter({
+  display: "swap",
+  variable: "--font-inter",
+})
 
 export const metadata = {
   title: {
@@ -21,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html lang="en" className={cn(inter.variable)}>
       <body>
         <TRPCReactProvider>
           <main>

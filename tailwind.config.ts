@@ -14,7 +14,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-geist-sans)"],
+        sans: ["var(--font-inter)"],
       },
       colors: {
         border: "hsl(var(--border))",
