@@ -1,5 +1,6 @@
 import React from "react"
 
+import Footer from "./Footer"
 import Header from "./Header"
 
 export default function SegmentInformation({
@@ -9,8 +10,11 @@ export default function SegmentInformation({
 }) {
   return (
     <>
-      <Header />
-      {children}
+      <div className="min-h-screen">
+        <Header />
+        {children}
+      </div>
+      <Footer />
     </>
   )
 }
